@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ScoresRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ScoresRepository::class)]
@@ -18,6 +19,17 @@ class Scores
 
     #[ORM\Column(length: 255)]
     private ?string $difficulty = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $scores = null;
+
+    #[ORM\ManyToOne(inversedBy: 'scores')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\OneToOne(inversedBy: 'scores', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Theme $theme = null;
 
     public function getId(): ?int
     {
@@ -44,6 +56,42 @@ class Scores
     public function setDifficulty(string $difficulty): static
     {
         $this->difficulty = $difficulty;
+
+        return $this;
+    }
+
+    public function getScores(): ?\DateTimeInterface
+    {
+        return $this->scores;
+    }
+
+    public function setScores(\DateTimeInterface $scores): static
+    {
+        $this->scores = $scores;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(Theme $theme): static
+    {
+        $this->theme = $theme;
 
         return $this;
     }
