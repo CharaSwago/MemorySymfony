@@ -41,11 +41,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Scores::class, mappedBy: 'user')]
     private Collection $scores;
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Patient $patient = null;
-
     #[ORM\Column]
     private bool $isVerified = false;
+
+    #[ORM\Column(length: 255)]
+    private ?string $username = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'patients')]
+    private ?self $orthophonist = null;
+
+    /**
+
+    * @var Collection<int, self>
+     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'orthophonist')]
+    private Collection $patients;
 
     public function __construct()
     {
@@ -157,23 +167,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPatient(): ?Patient
-    {
-        return $this->patient;
-    }
-
-    public function setPatient(Patient $patient): static
-    {
-        // set the owning side of the relation if necessary
-        if ($patient->getUser() !== $this) {
-            $patient->setUser($this);
-        }
-
-        $this->patient = $patient;
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -182,6 +175,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+    public function getOrthophonist(): ?self
+    {
+        return $this->orthophonist;
+    }
+
+    public function setOrthophonist(?self $orthophonist): static
+    {
+        $this->orthophonist = $orthophonist;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getPatients(): Collection
+    {
+        return $this->patients;
+    }
+
+    public function addPatient(self $patient): static
+    {
+        if (!$this->patients->contains($patient)) {
+            $this->patients->add($patient);
+            $patient->setOrthophonist($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatient(self $patient): static
+    {
+        if ($this->patients->removeElement($patient)) {
+            // set the owning side to null (unless already changed)
+            if ($patient->getOrthophonist() === $this) {
+                $patient->setOrthophonist(null);
+            }
+        }
 
         return $this;
     }
