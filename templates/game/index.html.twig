@@ -1,20 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GameController!{% endblock %}
+{% block title %}Memory game{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <section class="memory-game" id="memoryGame">
+        {#
+        {% for card in cards %}
+            <div class="memory-card" data-framework="{{ card.name }}">
+                <img class="front-face" src="{{ card.front }}" alt="{{ card.name }}">
+                <img class="back-face" src="{{ card.back }}" alt="Memory Card">
+            </div>
+        {% endfor %}
+        #}
+    </section>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <style>
+        .memory-card {
+            width: calc(25% - 10px);
+            height: calc(33.333% - 10px);
+            margin: 5px;
+            position: relative;
+            box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+            transform: scale(1);
+            transform-style: preserve-3d;
+            transition: transform .5s;
+        }
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/coding/MemorySymfony/src/Controller/GameController.php</code></li>
-        <li>Your template at <code>/Users/coding/MemorySymfony/templates/game/index.html.twig</code></li>
-    </ul>
-</div>
+        .memory-game {
+            width: 600px;
+            height: 600px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            perspective: 1000px;
+        }
+    </style>
 {% endblock %}
