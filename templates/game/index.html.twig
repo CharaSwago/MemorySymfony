@@ -12,8 +12,8 @@
         
         {% for card in cards %}
             <div class="memory-card" data-framework="{{ card.name }}">
-                <img class="front-face" src="{{ asset('Assets/' ~ card.front) }}" alt="{{ card.name }}">
-                <img class="back-face" src="{{ asset('Assets/back.jpg') }}" alt="Memory Card">
+                <img class="front-face" src="{{ asset('Asset/' ~ card.front) }}" alt="{{ card.name }}">
+                <img class="back-face" src="{{ asset('Asset/back.jpg') }}" alt="Memory Card">
             </div>
         {% endfor %}
         
