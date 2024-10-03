@@ -16,7 +16,7 @@ use App\Form\AddPatientType;
 
 class AdminController extends AbstractController
 {
-    #[Route('/admin/{id}', name: 'app_admin')]
+    #[Route('/admin', name: 'app_admin')]
     public function index( EntityManagerInterface $entityManager): Response
     {        
         return $this->render('admin/index.html.twig', [
@@ -52,7 +52,8 @@ class AdminController extends AbstractController
 
                 // ... perform some action, such as saving the task to the database
 
-                return $this->redirectToRoute('app_admin');
+                return $this->redirectToRoute('app_admin');  
+            
             } catch (\Exception $e) {
 
             $this->addFlash('error', 'An error occurred while adding the patient : ' . $e->getMessage());
