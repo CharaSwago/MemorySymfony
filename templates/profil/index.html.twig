@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <div class="bg-gray-900 text-gray-200 flex flex-col min-h-screen">
+        <header class="bg-gray-800 py-6">
+            <h1 class="text-center text-4xl font-bold">Mon Profil</h1>
+            <p class="text-center text-lg mt-2">Gérez vos informations personnelles et vos paramètres</p>
+        </header>
+
+        <nav class="bg-gray-700 py-4">
+            <div class="max-w-4xl mx-auto flex justify-center items-center space-x-6">
+                <a href="../home" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Accueil</a>
+                <a href="../game" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Jeu</a>
+                <a href="../score" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Scores</a>
+                <a href="../profil" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out ml-8">Profil</a>
+                <a href="../login" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hover:shadow-lg transition duration-300 ease-in-out">Se connecter</a>
+            </div>
+        </nav>
+
+        <main class="flex-grow p-6">
+            <div class="max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center mb-6">Mise à jour de votre profil</h2>
+
+                <form action="#" method="post" enctype="multipart/form-data">
+                    <div class="mb-6">
+                        <label for="profile_image" class="block text-gray-300 text-sm font-bold mb-2">Changer la photo de profil</label>
+                        <input type="file" name="profile_image" id="profile_image" class="w-full px-3 py-2 bg-gray-700 text-gray-200 border rounded focus:outline-none focus:shadow-outline">
+                        <p class="text-gray-500 text-sm mt-2">Formats acceptés: JPG, PNG. Taille max: 2MB.</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Changer votre email</label>
+                        <input type="email" name="email" id="email" value="" class="w-full px-3 py-2 bg-gray-700 text-gray-200 border rounded focus:outline-none focus:shadow-outline" placeholder="Entrez votre nouvel email">
+                    </div>
+
+                    <div class="flex justify-center">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
+                            Mettre à jour le profil
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer class="bg-gray-800 py-4">
+            <div class="text-center">
+                <p>&copy; 2024 MemorEase. Tous droits réservés.</p>
+                <p><a href="#" class="text-blue-400 hover:underline">Contactez-nous</a></p>
+            </div>
+        </footer>
+    </div>
+{% endblock %}

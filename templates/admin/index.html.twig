@@ -1,32 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Panneau d'Administration{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
 
-<div class="example-wrapper">
-    <h1>Hello {{ user.username }} ! ✅</h1>
+
+    <header class="bg-gray-800 py-6 shadow-lg">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-4xl font-bold">Panneau d'Administration</h1>
+            <p class="text-lg mt-2 text-gray-300">Gérez facilement les utilisateurs de votre plateforme</p>
+        </div>
+    </header>
+
+    <nav class="bg-gray-700 py-4 shadow">
+        <div class="max-w-6xl mx-auto flex justify-center items-center space-x-6">
+            <a href="../home" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Accueil</a>
+            <a href="../game" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Jeu</a>
+            <a href="../score" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Scores</a>
+            <a href="../profil" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out ml-8">Profil</a>
+            <a href="../login" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 ease-in-out">Se connecter</a>
+        </div>
+    </nav>
     
-    <a href="{{ path('app_logout') }}" class="btn btn-primary">Logout</a>
-    <br>
-    <a href="{{ path('app_admin_add_patient') }}" class="btn btn-primary">Add patient</a>
+    <main class="flex-grow">
+        <div class="max-w-6xl mx-auto p-6">
 
-    <h2>List</h2>
+            <div class="bg-gray-700 text-gray-200 p-6 rounded-lg shadow-lg">
+                <h1 class="text-3xl font-semibold mb-4">Bonjour {{ user.username }} ! ✅</h1>
+                
+                <div class="mb-6">
+                    <a href="{{ path('app_logout') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 ease-in-out">
+                        Déconnexion
+                    </a>
+                    <a href="{{ path('app_admin_add_patient') }}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300 ease-in-out ml-4">
+                        Ajouter un patient
+                    </a>
+                </div>
 
-    <h3>Patients</h3>
-<ul>
-    {% for patient in user.patients %}
-    <tr>
-        <li>{{ patient.username}} {{ patient.email }} </li>
-        <form method="post" action="{{ path('app_admin_remove', {'id': patient.id}) }}">
-            <button class="btn btn-danger" type="submit">Delete</button>
-        </form>
-    <tr>
-    {% endfor %}
-</ul>
+                <h2 class="text-xl font-semibold mb-4">Liste des Patients</h2>
+                
+                <!-- Tableau des utilisateurs -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-gray-800 text-gray-200 rounded-lg shadow-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="py-3 px-4 text-left">#</th>
+                                <th class="py-3 px-4 text-left">Nom d'utilisateur</th>
+                                <th class="py-3 px-4 text-left">Email</th>
+                                <th class="py-3 px-4 text-left">Édition</th>
+                                <th class="py-3 px-4 text-left">Suppression</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in user.patients %}
+                            <tr class="border-b border-gray-600">
+                                <td class="py-2 px-4">{{ loop.index }}</td>
+                                <td class="py-2 px-4">{{ patient.username }}</td>
+                                <td class="py-2 px-4">{{ patient.email }}</td>
+                                <td class="py-2 px-4">
+                                    <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition duration-300 ease-in-out">
+                                        Éditer
+                                    </button>
+                                </td>
+                                <td class="py-2 px-4">
+                                    <form method="post" action="{{ path('app_admin_remove', {'id': patient.id}) }}" class="inline">
+                                        <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-300 ease-in-out" type="submit">
+                                            Supprimer
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="py-2 px-4 text-center text-gray-400">Aucun patient trouvé.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+    <footer class="bg-gray-800 py-4">
+        <div class="max-w-6xl mx-auto text-center text-gray-400">
+            <p>&copy; 2024 MemorEase. Tous droits réservés.</p>
+            <p><a href="#" class="text-blue-400 hover:underline">Contactez-nous</a></p>
+        </div>
+    </footer>
 </div>
 {% endblock %}
