@@ -10,11 +10,10 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/coding/MemorySymfony/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/Users/coding/MemorySymfony/templates/home/index.html.twig</code></li>
-    </ul>
+    Register->
+    <a href="{{ path('app_register') }}" class="btn btn-primary">Register</a>
+    <br>
+    Connection ->
+    <a href="{{ path('app_login') }}" class="btn btn-primary">Login</a>
 </div>
 {% endblock %}
