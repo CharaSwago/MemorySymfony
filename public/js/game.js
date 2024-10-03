@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     reset.onclick = function() {
         resetGame();
-        console.log('Bouton Reset cliqué');
+        console.log('Timer remis à zéro');
     };
 
     deck.forEach(card => {
@@ -90,6 +90,7 @@ function flipCard() {
     }
 
     secondCard = this;
+    console.log("Seconde carte : ", secondCard.dataset.framework);
     checkForMatch();
 }
 
@@ -100,6 +101,7 @@ function checkForMatch() {
     if (isMatch) {
         disableCards();
         pairsFound++;
+        console.log("Paire trouvée, bravo !")
         if (pairsFound === totalPairs) {
             stopTimer();
             alert("Félicitations ! Vous avez terminé en " + chrono.textContent);
@@ -152,22 +154,38 @@ function shuffle() {
 // Mélanger les cartes au chargement
 shuffle();
 
-// Envoyer le score à l'API
+// Envoyer le score à l'API Symfony
+
 function sendScore(score) {
     const level = 1;
-    $.ajax({
-        type: "POST",
-        url: "insertScoreAjax.php",
-        data: { 'score': score, 'difficulty': level },
-        success: function (response) {
-            console.log(response);
-            alert("Votre score a été enregistré : " + score + " secondes !");
+    fetch('/score/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
         },
-        error: function (error) {
-            console.error(error);
+        body: JSON.stringify({ score: score, difficulty: level })
+    })
+    .then(response => {
+        // Check if response is actually JSON
+        if (!response.ok) {
+            return response.text().then(text => { throw new Error(text); });
         }
+        return response.json();
+    })
+    .then(data => {
+        if (data.status === 'success') {
+            alert("Votre score a été enregistré : " + score + " secondes !");
+        } else {
+            alert("Erreur : " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        alert("An error occurred: " + error.message);
     });
 }
+
 
 // Réinitialiser le jeu
 function resetGame() {
