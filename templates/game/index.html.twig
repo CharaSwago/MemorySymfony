@@ -3,36 +3,70 @@
 {% block title %}Memory game{% endblock %}
 
 {% block body %}
+    
+    <button id="startButton">Start</button>
+    <button id="resetButton">Reset</button>
+    <h1 id="chrono">00:00:00</h1>
+    
     <section class="memory-game" id="memoryGame">
-        {#
+        
         {% for card in cards %}
             <div class="memory-card" data-framework="{{ card.name }}">
-                <img class="front-face" src="{{ card.front }}" alt="{{ card.name }}">
-                <img class="back-face" src="{{ card.back }}" alt="Memory Card">
+                <img class="front-face" src="{{ asset('Assets/' ~ card.front) }}" alt="{{ card.name }}">
+                <img class="back-face" src="{{ asset('Assets/back.jpg') }}" alt="Memory Card">
             </div>
         {% endfor %}
-        #}
+        
     </section>
 
     <style>
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 colonnes de taille égale */
+            grid-gap: 15px; /* Espacement entre les cartes */
+            width: 600px; /* Largeur totale du jeu */
+            margin: auto;
+            perspective: 1000px;
+        }
+
         .memory-card {
-            width: calc(25% - 10px);
-            height: calc(33.333% - 10px);
-            margin: 5px;
+            width: 100%;
+            height: 200px;
             position: relative;
-            box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
             transform: scale(1);
             transform-style: preserve-3d;
             transition: transform .5s;
+            cursor: pointer;
         }
 
-        .memory-game {
-            width: 600px;
-            height: 600px;
-            margin: auto;
-            display: flex;
-            flex-wrap: wrap;
-            perspective: 1000px;
+        .memory-card img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+        }
+
+        .front-face {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.flip {
+            transform: rotateY(180deg);
+        }
+
+        .back-face {
+            transform: rotateY(0deg);
+}
+
+        .memory-card:active {
+            transform: scale(0.97);
+            transition: transform .2s;
         }
     </style>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/game.js') }}"></script>
+    {% endblock %}
+
 {% endblock %}
