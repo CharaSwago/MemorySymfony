@@ -21,7 +21,7 @@ class Scores
     private ?string $difficulty = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $scores = null;
+    private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'scores')]
     #[ORM\JoinColumn(nullable: false)]
@@ -60,14 +60,14 @@ class Scores
         return $this;
     }
 
-    public function getScores(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->scores;
+        return $this->createdAt;
     }
 
-    public function setScores(\DateTimeInterface $scores): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
-        $this->scores = $scores;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
