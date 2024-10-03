@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,7 +16,7 @@ use App\Form\AddPatientType;
 
 class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'app_admin')]
+    #[Route('/admin/{id}', name: 'app_admin')]
     public function index( EntityManagerInterface $entityManager): Response
     {        
         return $this->render('admin/index.html.twig', [
@@ -30,23 +29,36 @@ class AdminController extends AbstractController
     {
         $patient = new User();       
         $orth = $this->getUser();
+        $orth->addPatient($patient);
         $form = $this->createForm(AddPatientType::class, $patient);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
-            $plainPassword = $form->get('plainPassword')->getData();
-            $patient = $form->getData();
-            $patient->setPassword($userPasswordHasher->hashPassword($patient, $plainPassword));        
-            $entityManager->persist($user);
-            $entityManager->flush();
+            try {
+                $roles = $patient->getRoles(); 
+                if (!in_array('ROLE_USER', $roles, true)) {
+                    $roles[] = 'ROLE_USER'; 
+                }
+                $patient->setRoles($roles);
 
-            // ... perform some action, such as saving the task to the database
+                $plainPassword = $form->get('plainPassword')->getData();
+                $user = $form->getData();
+                $user->setPassword($userPasswordHasher->hashPassword($patient, $plainPassword));  
 
-            return $this->redirectToRoute('app_admin');
-            
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                // ... perform some action, such as saving the task to the database
+
+                return $this->redirectToRoute('app_admin');
+            } catch (\Exception $e) {
+
+            $this->addFlash('error', 'An error occurred while adding the patient : ' . $e->getMessage());
         }
+
+    }
 
         return $this->render('admin/new.html.twig', [
             'form' => $form,

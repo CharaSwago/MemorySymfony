@@ -19,7 +19,7 @@
 
     <h3>Patients</h3>
 <ul>
-    {% for patient in user %}
+    {% for patient in user.patients %}
     <tr>
         <li>{{ patient.username}} {{ patient.email }} </li>
         <form method="post" action="{{ path('app_admin_remove', {'id': patient.id}) }}">
