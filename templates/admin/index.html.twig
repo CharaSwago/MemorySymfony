@@ -9,13 +9,24 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ user.email }} ! ✅</h1>
+    <h1>Hello {{ user.username }} ! ✅</h1>
+    
+    <a href="{{ path('app_logout') }}" class="btn btn-primary">Logout</a>
+    <br>
+    <a href="{{ path('app_admin_add_patient') }}" class="btn btn-primary">Add patient</a>
 
-    This friendly message is coming from:
-    <h1>Patients</h1>
+    <h2>List</h2>
+
+    <h3>Patients</h3>
 <ul>
     {% for patient in user.patients %}
-        <li>{{ patient.username}} {{ patient.email }} </li>
+    <tr>
+        <li>{{ patient.username}} {{ patient.email }} {{ patient.score }} </li>
+        <form method="post" action="{{ path('app_admin_remove', {'id': patient.id}) }}">
+        {{ 'removePatient' ~ patient.id }}
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+    <tr>
     {% endfor %}
 </ul>
 </div>
