@@ -49,4 +49,19 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/remove/{id}', name: 'app_admin_remove')]
+    public function removePatient(User $patient, EntityManagerInterface $entityManager): Response
+    {
+        $orth = $this->getUser();
+
+        $orth->removePatient($patient);
+
+        $entityManager->remove($patient);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Patient removed successfully.');
+
+        return $this->redirectToRoute('app_admin');
+
+    }
 }
