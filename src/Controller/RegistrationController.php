@@ -33,8 +33,10 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-            $roles = $user->getRoles();
-            $roles[] = 'ROLE_ADMIN';
+            $roles = $user->getRoles(); 
+            if (!in_array('ROLE_ADMIN', $roles, true)) {
+                $roles[] = 'ROLE_ADMIN'; 
+            }
             $user->setRoles($roles);
 
             // encode the plain password
