@@ -3,5 +3,7 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-{{ form(form) }}
+{{ form_start(form) }}
+    <button class="btn btn-danger" type="submit">Add Patient</button>
+{{ form_end(form) }}
 {% endblock %}

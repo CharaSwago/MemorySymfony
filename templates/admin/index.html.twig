@@ -19,11 +19,10 @@
 
     <h3>Patients</h3>
 <ul>
-    {% for patient in user.patients %}
+    {% for patient in user %}
     <tr>
-        <li>{{ patient.username}} {{ patient.email }} {{ patient.score }} </li>
+        <li>{{ patient.username}} {{ patient.email }} </li>
         <form method="post" action="{{ path('app_admin_remove', {'id': patient.id}) }}">
-        {{ 'removePatient' ~ patient.id }}
             <button class="btn btn-danger" type="submit">Delete</button>
         </form>
     <tr>
