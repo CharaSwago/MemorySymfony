@@ -22,17 +22,18 @@ class AdminController extends AbstractController
         return $this->render('admin/index.html.twig', [
             'user' => $this->getUser(),
         ]);
-    }
 
-    #[Route('/admin/add/patient', name: 'app_admin_add_patient')]
-    public function addPatients(UserPasswordHasherInterface $userPasswordHasher, Security $security, Request $request, EntityManagerInterface $entityManager): Response
-    {
         if (!$this->isGranted('ROLE_ADMIN')){
             return $this->redirectToRoute('app_login');
         } elseif (!$this->isGranted('ROLE_USER')){
             return $this->redirectToRoute('app_login');
         }
-        
+    }
+
+    #[Route('/admin/add/patient', name: 'app_admin_add_patient')]
+    public function addPatients(UserPasswordHasherInterface $userPasswordHasher, Security $security, Request $request, EntityManagerInterface $entityManager): Response
+    {
+
         $patient = new User();       
         $orth = $this->getUser();
         $orth->addPatient($patient);
