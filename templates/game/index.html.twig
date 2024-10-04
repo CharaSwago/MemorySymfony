@@ -3,30 +3,7 @@
 {% block title %}Jeu de Mémoire{% endblock %}
 
 {% block body %}
-
-    <div class="bg-gray-900 text-gray-200 flex flex-col min-h-screen">
-
-        <main class="flex-grow p-6">
-            <div class="max-w-4xl mx-auto">
-                <section class="memory-game mx-auto">
-                    {% for i in 1..25 %}
-                        <div class="memory-card">
-                            <img class="front-face" src="/images/card-front-placeholder.jpg" alt="Front Face" />
-                            <img class="back-face" src="/images/card-back-placeholder.jpg" alt="Back Face" />
-                        </div>
-                    {% endfor %}
-                </section>
-            </div>
-        </main>
-
-        <footer class="bg-gray-800 py-4">
-            <div class="max-w-6xl mx-auto text-center text-gray-400">
-                <p>&copy; 2024 MemorEase. Tous droits réservés.</p>
-                <p><a href="#" class="text-blue-400 hover:underline">Contactez-nous</a></p>
-            </div>
-        </footer>
-    </div>
-    
+  
     <button id="startButton">Start</button>
     <button id="resetButton">Reset</button>
     <h1 id="chrono">00:00:00</h1>
@@ -35,7 +12,7 @@
         
         {% for card in cards %}
             <div class="memory-card" data-framework="{{ card.name }}">
-                <img class="front-face" src="{{ asset('Asset/' ~ card.front) }}" alt="{{ card.name }}">
+                <img class="front-face" src="{{ card.front }}" alt="{{ card.name }}">
                 <img class="back-face" src="{{ asset('Asset/back.jpg') }}" alt="Memory Card">
             </div>
         {% endfor %}

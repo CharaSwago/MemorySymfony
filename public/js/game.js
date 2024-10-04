@@ -55,8 +55,8 @@ function updateTimer() {
     let sec = elapsedTime % 60;
 
     chrono.textContent = (hrs > 9 ? hrs : '0' + hrs) + ':' +
-                     (min > 9 ? min : '0' + min) + ':' +
-                     (sec > 9 ? sec : '0' + sec);
+                    (min > 9 ? min : '0' + min) + ':' +
+                    (sec > 9 ? sec : '0' + sec);
 }
 
 // Fonction pour arrêter le timer
