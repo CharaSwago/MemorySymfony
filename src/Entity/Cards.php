@@ -18,16 +18,8 @@ class Cards
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    /**
-     * @var Collection<int, Theme>
-     */
-    #[ORM\ManyToMany(targetEntity: Theme::class, inversedBy: 'cards')]
-    private Collection $theme;
-
-    public function __construct()
-    {
-        $this->theme = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'cards')]
+    private ?Theme $theme = null;
 
     public function getId(): ?int
     {
@@ -46,13 +38,6 @@ class Cards
         return $this;
     }
 
-    /**
-     * @return Collection<int, Theme>
-     */
-    public function getTheme(): Collection
-    {
-        return $this->theme;
-    }
 
     public function addTheme(Theme $theme): static
     {
@@ -66,6 +51,18 @@ class Cards
     public function removeTheme(Theme $theme): static
     {
         $this->theme->removeElement($theme);
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Theme $theme): static
+    {
+        $this->theme = $theme;
 
         return $this;
     }

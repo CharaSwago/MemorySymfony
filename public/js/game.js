@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const reset = document.getElementById('resetButton');
     console.log('Cartes sélectionnées : ', deck.length);
 
+    // Mélanger les cartes au chargement
+    shuffle();
+
     start.onclick = function() {
         startTimer();
         console.log('Bouton Start cliqué');
@@ -43,7 +46,7 @@ function startTimer() {
         timerInterval = setInterval(updateTimer, 1000); // Met à jour chaque seconde
         isTimerRunning = true;
         console.log("Timer démarré");
-        console.log("nombre de paires : " + totalPairs)
+        console.log("nombre de paires : " + totalPairs);
     }
 }
 
@@ -101,7 +104,7 @@ function checkForMatch() {
     if (isMatch) {
         disableCards();
         pairsFound++;
-        console.log("Paire trouvée, bravo !")
+        console.log("Paire trouvée, bravo !");
         if (pairsFound === totalPairs) {
             stopTimer();
             alert("Félicitations ! Vous avez terminé en " + chrono.textContent);
@@ -136,26 +139,20 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
+// Fonction pour mélanger les cartes
 function shuffle() {
-    deck.forEach(card => {
-        let ramdomPos = Math.floor(Math.random() * 12);
-        card.style.order = ramdomPos;
+    const shuffledDeck = Array.from(deck);
+    for (let i = shuffledDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]]; // Échange les éléments
+    }
+    
+    shuffledDeck.forEach((card, index) => {
+        card.style.order = index; // Appliquer l'ordre mélangé
     });
 }
 
-// Mélanger les cartes
-function shuffle() {
-    deck.forEach(card => {
-        let randomPos = Math.floor(Math.random() * deck.length);
-        card.style.order = randomPos;
-    });
-};
-
-// Mélanger les cartes au chargement
-shuffle();
-
 // Envoyer le score à l'API Symfony
-
 function sendScore(score) {
     const level = 1;
     fetch('/score/submit', {
@@ -167,7 +164,7 @@ function sendScore(score) {
         body: JSON.stringify({ score: score, difficulty: level })
     })
     .then(response => {
-        // Check if response is actually JSON
+        // Vérifier si la réponse est réellement du JSON
         if (!response.ok) {
             return response.text().then(text => { throw new Error(text); });
         }
@@ -182,16 +179,15 @@ function sendScore(score) {
     })
     .catch(error => {
         console.error('Erreur:', error);
-        alert("An error occurred: " + error.message);
+        alert("Une erreur est survenue : " + error.message);
     });
 }
-
 
 // Réinitialiser le jeu
 function resetGame() {
     resetTimer();
     pairsFound = 0;
     deck.forEach(card => card.classList.remove('flip'));
-    shuffle();
+    shuffle(); // Mélanger les cartes à nouveau
     resetBoard();
 }

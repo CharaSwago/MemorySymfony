@@ -27,7 +27,7 @@ class Theme
     /**
      * @var Collection<int, Cards>
      */
-    #[ORM\ManyToMany(targetEntity: Cards::class, mappedBy: 'theme')]
+    #[ORM\OneToMany(targetEntity: Cards::class, mappedBy: 'theme', orphanRemoval: true)]
     private Collection $cards;
 
     public function __construct()
@@ -81,13 +81,6 @@ class Theme
         return $this;
     }
 
-    /**
-     * @return Collection<int, Cards>
-     */
-    public function getCards(): Collection
-    {
-        return $this->cards;
-    }
 
     public function addCard(Cards $card): static
     {
@@ -107,4 +100,13 @@ class Theme
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Cards>
+     */
+    public function getCards(): Collection
+    {
+        return $this->cards;
+    }
+
 }
