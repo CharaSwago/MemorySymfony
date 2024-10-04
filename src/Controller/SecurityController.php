@@ -23,6 +23,7 @@ class SecurityController extends AbstractController
             } elseif ($this->isGranted('ROLE_USER')) {
                 return $this->redirectToRoute('app_game');
             }
+
             return $this->render('security/login.html.twig', [
                 'last_username' => $lastUsername,
                 'error' => $error,

@@ -3,28 +3,6 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="bg-gray-900 text-gray-200 flex flex-col min-h-screen">
-        <header class="bg-gray-800 py-6">
-            <h1 class="text-center text-4xl font-bold">MemorEase</h1>
-            <p class="text-center text-lg mt-2">Un espace dédié à l'orthophonie et à l'apprentissage ludique</p>
-        </header>
-
-        <nav class="bg-gray-700 py-4">
-            <div class="max-w-4xl mx-auto flex justify-center items-center space-x-6">
-                <a href="../home" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Accueil</a>
-                <a href="../game" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Jeu</a>
-                <a href="../score" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Scores</a>
-                <a href="../profil" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out ml-8">Profil</a>
-
-                {% if app.user %}
-                    <!-- Show logout button if user is logged in -->
-                    <a href="{{ path('app_logout') }}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 hover:shadow-lg transition duration-300 ease-in-out">Se déconnecter</a>
-                {% else %}
-                    <!-- Show login button if user is not logged in -->
-                    <a href="../login" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hover:shadow-lg transition duration-300 ease-in-out">Se connecter</a>
-                {% endif %}
-            </div>
-        </nav>
 
         <div class="flex items-center justify-center flex-grow">
             <form method="post" class="bg-gray-800 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 w-full max-w-sm">

@@ -4,35 +4,14 @@
 
 {% block body %}
 <div class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
-
-
-    <header class="bg-gray-800 py-6 shadow-lg">
-        <div class="max-w-6xl mx-auto text-center">
-            <h1 class="text-4xl font-bold">Panneau d'Administration</h1>
-            <p class="text-lg mt-2 text-gray-300">Gérez facilement les utilisateurs de votre plateforme</p>
-        </div>
-    </header>
-
-    <nav class="bg-gray-700 py-4 shadow">
-        <div class="max-w-6xl mx-auto flex justify-center items-center space-x-6">
-            <a href="../home" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Accueil</a>
-            <a href="../game" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Jeu</a>
-            <a href="../score" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out">Scores</a>
-            <a href="../profil" class="text-gray-200 hover:text-blue-400 transition duration-300 ease-in-out ml-8">Profil</a>
-            <a href="../login" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 ease-in-out">Se connecter</a>
-        </div>
-    </nav>
     
     <main class="flex-grow">
         <div class="max-w-6xl mx-auto p-6">
 
             <div class="bg-gray-700 text-gray-200 p-6 rounded-lg shadow-lg">
                 <h1 class="text-3xl font-semibold mb-4">Bonjour {{ user.username }} ! ✅</h1>
-                
+
                 <div class="mb-6">
-                    <a href="{{ path('app_logout') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 ease-in-out">
-                        Déconnexion
-                    </a>
                     <a href="{{ path('app_admin_add_patient') }}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300 ease-in-out ml-4">
                         Ajouter un patient
                     </a>
