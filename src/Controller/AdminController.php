@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Form\AddPatientType;
 
-
-
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]

@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in{% endblock %}
-
 {% block body %}
 
         <div class="flex items-center justify-center flex-grow">
             <form method="post" class="bg-gray-800 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 w-full max-w-sm">
-                {% if error %}
+            {% if error %}
                     <div class="alert alert-danger mb-4 text-red-500">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
@@ -19,10 +17,10 @@
                 <h1 class="text-2xl font-bold mb-6 text-center text-white">Please log in</h1>
 
                 <label for="username" class="block text-gray-300 text-sm font-bold mb-2">Email</label>
-                <input type="email" name="_username" id="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 placeholder-gray-500" placeholder="Entrez votre email" autocomplete="email" required autofocus>
+                <input type="email" name="_username" id="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 placeholder-gray-500" placeholder="Email" autocomplete="email" required autofocus>
 
                 <label for="password" class="block text-gray-300 text-sm font-bold mb-2 mt-4">Your password</label>
-                <input type="password" name="_password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 placeholder-gray-500" placeholder="Entrez votre mot de passe" autocomplete="current-password" required>
+                <input type="password" name="_password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 placeholder-gray-500" placeholder="Password" autocomplete="current-password" required>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -37,5 +35,4 @@
                 </p>
             </form>
         </div>
-    </div>
 {% endblock %}

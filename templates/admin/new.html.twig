@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un Patient{% endblock %}
-
 {% block body %}
 
 <div class="flex items-center justify-center min-h-screen bg-gray-900">
     <div class="max-w-4xl w-full p-6 bg-gray-700 rounded-lg shadow-lg">
-        <h2 class="text-3xl font-semibold text-center text-white mb-6">Ajouter un Patient</h2>
+        <h2 class="text-3xl font-semibold text-center text-white mb-6">Add a Patient</h2>
 
         {{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
         
@@ -14,7 +12,7 @@
             {{ form_row(form.username, {
                 'attr': {
                     'class': 'w-full p-4 bg-gray-800 text-gray-200 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300',
-                    'placeholder': 'Nom d’utilisateur'
+                    'placeholder': 'Username'
                 }
             }) }}
         </div>
@@ -23,7 +21,7 @@
             {{ form_row(form.email, {
                 'attr': {
                     'class': 'w-full p-4 bg-gray-800 text-gray-200 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300',
-                    'placeholder': 'Adresse e-mail'
+                    'placeholder': 'Email'
                 }
             }) }}
         </div>
@@ -32,14 +30,14 @@
             {{ form_row(form.plainPassword, {
                 'attr': {
                     'class': 'w-full p-4 bg-gray-800 text-gray-200 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300',
-                    'placeholder': 'Mot de passe'
+                    'placeholder': 'Password'
                 }
             }) }}
         </div>
 
         <div class="flex justify-center">
             <button type="submit" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
-                Ajouter
+                Add
             </button>
         </div>
         

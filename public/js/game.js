@@ -17,11 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
     chrono = document.getElementById('chrono');
     const start = document.getElementById('startButton');
     const reset = document.getElementById('resetButton');
-    console.log('Cartes sélectionnées : ', deck.length);
-
+    console.log('Cartes sélectionnées : ', deck.length);    // Mélanger les cartes au chargement
     // Mélanger les cartes au chargement
     shuffle();
-
     start.onclick = function() {
         startTimer();
         console.log('Bouton Start cliqué');
@@ -46,7 +44,7 @@ function startTimer() {
         timerInterval = setInterval(updateTimer, 1000); // Met à jour chaque seconde
         isTimerRunning = true;
         console.log("Timer démarré");
-        console.log("nombre de paires : " + totalPairs);
+        console.log("nombre de paires : " + totalPairs)
     }
 }
 
@@ -104,7 +102,7 @@ function checkForMatch() {
     if (isMatch) {
         disableCards();
         pairsFound++;
-        console.log("Paire trouvée, bravo !");
+        console.log("Paire trouvée, bravo !")
         if (pairsFound === totalPairs) {
             stopTimer();
             alert("Félicitations ! Vous avez terminé en " + chrono.textContent);
@@ -139,7 +137,6 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
-// Fonction pour mélanger les cartes
 function shuffle() {
     const shuffledDeck = Array.from(deck);
     for (let i = shuffledDeck.length - 1; i > 0; i--) {
@@ -152,7 +149,11 @@ function shuffle() {
     });
 }
 
+// Mélanger les cartes au chargement
+shuffle();
+
 // Envoyer le score à l'API Symfony
+
 function sendScore(score) {
     const level = 1;
     fetch('/score/submit', {
@@ -164,7 +165,7 @@ function sendScore(score) {
         body: JSON.stringify({ score: score, difficulty: level })
     })
     .then(response => {
-        // Vérifier si la réponse est réellement du JSON
+        // Check if response is actually JSON
         if (!response.ok) {
             return response.text().then(text => { throw new Error(text); });
         }
@@ -179,15 +180,16 @@ function sendScore(score) {
     })
     .catch(error => {
         console.error('Erreur:', error);
-        alert("Une erreur est survenue : " + error.message);
+        alert("An error occurred: " + error.message);
     });
 }
+
 
 // Réinitialiser le jeu
 function resetGame() {
     resetTimer();
     pairsFound = 0;
     deck.forEach(card => card.classList.remove('flip'));
-    shuffle(); // Mélanger les cartes à nouveau
+    shuffle();
     resetBoard();
 }
